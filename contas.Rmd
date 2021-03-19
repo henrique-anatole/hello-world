@@ -1,0 +1,62 @@
+---
+title: "Contas"
+author: "Henrique"
+date: date()
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+
+options(knitr.kable.NA = '-')
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+# install.packages("goft")
+#if you have problems with pdf. generation on knit, try the code below
+#just used to knit to .pdf. If you dont need it, just comment or delete it.
+#install.packages("tinytex")
+#tinytex::install_tinytex()  # install TinyTeX
+#install.packages("tidyverse") #if needed
+
+#turn off scientific notation numbers format
+options(scipen=999)
+
+
+```
+<style>
+body {
+text-align: justify}
+</style>
+```{r initalise, include=FALSE}
+
+library(tidyverse)
+
+# Clear the decks
+rm(list = ls())
+
+```
+
+```{r results='asis'}
+
+savings <- 100000
+
+proportion_high_risk <- 0.1
+proportion_medium_risk <- 0.3
+proportion_low_risk <- 1 - (proportion_high_risk + proportion_medium_risk)
+
+avg_return_high_risk <- 0.1
+avg_return_medium_risk <- 0.02
+avg_return_low_risk <- 0.01
+
+final_decimal <- ((1+avg_return_high_risk)*proportion_high_risk + (1+avg_return_medium_risk)*proportion_medium_risk + (1+avg_return_low_risk)*proportion_low_risk)-1
+
+
+#juros anual para mensal %
+year_rate <- 100*final_decimal
+month_rate <- (((1 + (year_rate/100) )^(1/12))-1)*100
+#juros mensal para anual %
+month_rate <- 1
+year_rate <- (((1 + (month_rate/100) )^(12))-1)*100
+
+```
